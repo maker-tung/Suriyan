@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SURIYAN - ศาสตร์แห่งดวงอาทิตย์ สุริยยาตร์</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@400;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --gold:#c9a84c;--gold-light:#f0d080;--gold-dark:#8a6020;
+      --bg:#04040a;--card:#0a0a18;--text:#f5e6c0;--text-muted:rgba(245,230,192,0.55);
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;overflow-x:hidden}
+    .gold-text{background:linear-gradient(135deg,#c9a84c 0%,#f0d080 40%,#e8c97a 60%,#a07830 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .gold-glow{filter:drop-shadow(0 0 20px rgba(201,168,76,0.5))}
+
+    /* ANIMATIONS */
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    @keyframes rotateSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes rotateRev{from{transform:rotate(360deg)}to{transform:rotate(0deg)}}
+    @keyframes twinkle{0%,100%{opacity:0.3}50%{opacity:1}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    .float{animation:float 6s ease-in-out infinite}
+    .rotate-slow{animation:rotateSlow 60s linear infinite}
+    .rotate-rev{animation:rotateRev 45s linear infinite}
+    .fade-up{animation:fadeUp 0.9s ease forwards}
+
+    /* NAVBAR */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:linear-gradient(180deg,rgba(4,4,10,0.97)0%,rgba(4,4,10,0.88)100%);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.12);padding:0}
+    .nav-inner{max-width:1280px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:.75rem}
+    .nav-logo span{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#c9a84c,#f0d080,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.2em}
+    .nav-links{display:flex;gap:2rem}
+    .nav-links a{color:rgba(245,230,192,0.8);text-decoration:none;font-size:.9rem;transition:color .3s;position:relative}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+    .nav-links a.active::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--gold);border-radius:1px}
+    .nav-btns{display:flex;gap:.6rem}
+    .btn-outline{background:transparent;color:var(--gold);border:1px solid var(--gold);padding:.5rem 1.4rem;border-radius:4px;cursor:pointer;font-family:'Sarabun',sans-serif;font-size:.88rem;transition:all .3s}
+    .btn-outline:hover{background:rgba(201,168,76,0.1)}
+    .btn-gold{background:linear-gradient(135deg,#c9a84c,#e8c97a,#c9a84c);color:#1a0e00;border:none;padding:.5rem 1.4rem;border-radius:4px;cursor:pointer;font-family:'Sarabun',sans-serif;font-size:.88rem;font-weight:700;transition:all .3s}
+    .btn-gold:hover{box-shadow:0 4px 20px rgba(201,168,76,0.5);transform:translateY(-1px)}
+
+    /* HERO */
+    .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:80px;overflow:hidden}
+    .hero-bg-grad{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,rgba(70,45,10,0.85)0%,rgba(20,15,5,0.9)45%,#04040a 80%)}
+    .stars{position:absolute;inset:0;pointer-events:none}
+    .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite;animation-delay:var(--delay,0s)}
+    .hero-rings{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+    .ring{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,0.12);top:50%;left:50%;transform:translate(-50%,-50%)}
+    .hero-content{position:relative;z-index:10}
+    .hero-title{font-family:'Cinzel',serif;font-size:6rem;font-weight:900;line-height:1;letter-spacing:.15em;margin:.5rem 0}
+    .hero-sub{font-size:1.4rem;font-weight:500;color:#d4a840;margin-bottom:.4rem;letter-spacing:.05em}
+    .hero-desc{font-size:1rem;color:rgba(245,230,192,0.65);margin-bottom:2.5rem}
+    .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-hero{padding:.8rem 2.8rem;border-radius:4px;font-family:'Sarabun',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s;letter-spacing:.04em}
+    .btn-hero-gold{background:linear-gradient(135deg,#c9a84c,#e8c97a,#b8922a);color:#1a0e00;border:none}
+    .btn-hero-gold:hover{box-shadow:0 6px 30px rgba(201,168,76,0.6);transform:translateY(-2px)}
+    .btn-hero-border{background:transparent;color:var(--gold);border:2px solid var(--gold)}
+    .btn-hero-border:hover{background:rgba(201,168,76,0.1);box-shadow:0 6px 30px rgba(201,168,76,0.25);transform:translateY(-2px)}
+    .hero-fade{position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(transparent,#04040a);pointer-events:none}
+
+    /* Temple silhouettes */
+    .temple-left,.temple-right{position:absolute;bottom:0;opacity:0.25;pointer-events:none}
+    .temple-left{left:0}.temple-right{right:0}
+
+    /* SECTION */
+    section{padding:5rem 1.5rem}
+    .container{max-width:1280px;margin:0 auto}
+    .section-title{text-align:center;margin-bottom:3rem}
+    .divider{display:flex;align-items:center;gap:1rem;justify-content:center}
+    .divider::before,.divider::after{content:'';flex:0 1 80px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4))}
+    .divider::after{background:linear-gradient(270deg,transparent,rgba(201,168,76,0.4))}
+    .divider span{font-family:'Sarabun',sans-serif;font-size:1.15rem;font-weight:600;color:var(--gold);white-space:nowrap}
+
+    /* SERVICES */
+    .services-bg{background:linear-gradient(180deg,#04040a 0%,#06060e 50%,#04040a 100%)}
+    .services-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+    @media(max-width:1024px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:640px){.services-grid{grid-template-columns:repeat(1,1fr)}}
+    .service-card{background:linear-gradient(135deg,#0a0a18,#0f0f22);border:1px solid rgba(201,168,76,0.18);border-radius:8px;padding:1.8rem 1.2rem;text-align:center;transition:all .4s;position:relative;overflow:hidden}
+    .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4),transparent)}
+    .service-card:hover{border-color:rgba(201,168,76,0.45);transform:translateY(-5px);box-shadow:0 12px 40px rgba(201,168,76,0.12)}
+    .service-icon{width:76px;height:76px;margin:0 auto 1.2rem}
+    .service-title{font-size:.95rem;font-weight:700;color:var(--gold);margin-bottom:.6rem}
+    .service-desc{font-size:.78rem;color:var(--text-muted);line-height:1.7;margin-bottom:1.2rem}
+    .btn-sm{border:1px solid rgba(201,168,76,0.4);color:rgba(201,168,76,0.7);background:transparent;padding:.35rem 1rem;border-radius:4px;font-family:'Sarabun',sans-serif;font-size:.78rem;cursor:pointer;transition:all .3s}
+    .btn-sm:hover{border-color:var(--gold);color:var(--gold)}
+
+    /* DAILY FORTUNE */
+    .fortune-section{background:linear-gradient(180deg,#04040a 0%,#060610 50%,#04040a 100%)}
+    .fortune-grid{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:2rem;align-items:center}
+    @media(max-width:900px){.fortune-grid{grid-template-columns:1fr}}
+    .fortune-card{background:linear-gradient(135deg,#090918,#0f0f24);border:1px solid rgba(201,168,76,0.22);border-radius:12px;padding:2.2rem;position:relative;overflow:hidden}
+    .fortune-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,#f0d080,#c9a84c,transparent)}
+    .fortune-card-title{text-align:center;margin-bottom:1.5rem}
+    .date-num{font-family:'Cinzel',serif;font-size:5.5rem;font-weight:900;line-height:1;background:linear-gradient(135deg,#c9a84c,#f0d080,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(201,168,76,0.4))}
+    .date-month{font-size:1.05rem;color:rgba(201,168,76,0.8);margin-top:.3rem}
+    .date-day{font-size:.82rem;color:var(--text-muted);margin-top:.2rem;margin-bottom:1.5rem}
+    .fortune-quote{font-size:.85rem;line-height:1.8;color:rgba(245,230,192,0.72);font-style:italic;border-left:2px solid rgba(201,168,76,0.3);padding-left:1rem;margin-bottom:1.5rem}
+    .lucky-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.9rem}
+    .lucky-label{font-size:.84rem;color:rgba(201,168,76,0.75);font-weight:500;min-width:5rem}
+    .color-dots{display:flex;gap:.5rem}
+    .color-dot{width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,0.08)}
+    .lucky-nums{display:flex;gap:.5rem}
+    .lucky-num{width:34px;height:34px;border-radius:50%;border:1px solid rgba(201,168,76,0.35);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Cinzel',serif;font-size:.9rem;font-weight:600}
+    .wheel-wrap{display:flex;justify-content:center;align-items:center}
+
+    /* BLOG */
+    .blog-section{background:#04040a}
+    .blog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+    @media(max-width:900px){.blog-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:500px){.blog-grid{grid-template-columns:1fr}}
+    .blog-card{background:linear-gradient(135deg,#0a0a18,#0f0f22);border:1px solid rgba(201,168,76,0.12);border-radius:8px;overflow:hidden;transition:all .4s;cursor:pointer}
+    .blog-card:hover{border-color:rgba(201,168,76,0.38);transform:translateY(-5px);box-shadow:0 12px 40px rgba(201,168,76,0.1)}
+    .blog-img{height:140px;position:relative;overflow:hidden}
+    .blog-img svg{width:100%;height:100%}
+    .blog-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(4,4,10,0.95)100%)}
+    .blog-body{padding:1rem}
+    .blog-title{font-size:.88rem;font-weight:600;color:rgba(245,230,192,0.88);line-height:1.5;margin-bottom:.5rem;transition:color .3s}
+    .blog-card:hover .blog-title{color:#f0d080}
+    .blog-date{font-size:.75rem;color:var(--text-muted)}
+
+    /* FOOTER */
+    footer{background:linear-gradient(180deg,#04040a,#020208);border-top:1px solid rgba(201,168,76,0.12);padding:3.5rem 1.5rem 2rem}
+    .footer-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:2rem}}
+    @media(max-width:500px){.footer-grid{grid-template-columns:1fr}}
+    .footer-logo{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem}
+    .footer-logo span{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#c9a84c,#f0d080,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.15em}
+    .footer-tagline{font-size:.78rem;color:rgba(245,230,192,0.38);line-height:1.7}
+    .footer-heading{font-size:.88rem;font-weight:600;color:var(--gold);margin-bottom:1rem}
+    .footer-item{font-size:.78rem;color:rgba(245,230,192,0.5);line-height:2}
+    .footer-item a{color:rgba(245,230,192,0.5);text-decoration:none;transition:color .3s}
+    .footer-item a:hover{color:var(--gold)}
+    .social-icons{display:flex;gap:.6rem}
+    .social-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(201,168,76,0.28);background:rgba(201,168,76,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s}
+    .social-btn:hover{border-color:var(--gold);background:rgba(201,168,76,0.12);transform:scale(1.1)}
+    .footer-divider{max-width:1280px;margin:0 auto 1.2rem;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.18),transparent)}
+    .footer-copy{text-align:center;font-size:.75rem;color:rgba(245,230,192,0.27)}
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg width="38" height="38" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.35"/>
+        <circle cx="20" cy="20" r="12" fill="url(#ns1)"/>
+        <script>
+        </script>
+        <g opacity="0.55">
+          <line x1="20" y1="2" x2="20" y2="8" stroke="#c9a84c" stroke-width="0.8"/>
+          <line x1="20" y1="32" x2="20" y2="38" stroke="#c9a84c" stroke-width="0.8"/>
+          <line x1="2" y1="20" x2="8" y2="20" stroke="#c9a84c" stroke-width="0.8"/>
+          <line x1="32" y1="20" x2="38" y2="20" stroke="#c9a84c" stroke-width="0.8"/>
+          <line x1="5.4" y1="5.4" x2="9.8" y2="9.8" stroke="#c9a84c" stroke-width="0.8"/>
+          <line x1="30.2" y1="30.2" x2="34.6" y2="34.6" stroke="#c9a84c" stroke-width="0.8"/>
+          <line x1="34.6" y1="5.4" x2="30.2" y2="9.8" stroke="#c9a84c" stroke-width="0.8"/>
+          <line x1="9.8" y1="30.2" x2="5.4" y2="34.6" stroke="#c9a84c" stroke-width="0.8"/>
+        </g>
+        <ellipse cx="17" cy="18" rx="2.5" ry="3" fill="#1a0e00"/>
+        <ellipse cx="23" cy="18" rx="2.5" ry="3" fill="#1a0e00"/>
+        <circle cx="16.2" cy="16.8" r="1" fill="#c9a84c" opacity="0.5"/>
+        <circle cx="22.2" cy="16.8" r="1" fill="#c9a84c" opacity="0.5"/>
+        <path d="M16 22.5 Q20 26 24 22.5" stroke="#5a3010" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <defs>
+          <radialGradient id="ns1" cx="45%" cy="38%" r="55%">
+            <stop offset="0%" stop-color="#f5d878"/>
+            <stop offset="55%" stop-color="#d4902a"/>
+            <stop offset="100%" stop-color="#8a5010"/>
+          </radialGradient>
+        </defs>
+      </svg>
+      <span>SURIYAN</span>
+    </div>
+    <div class="nav-links">
+      <a href="#" class="active">หน้าแรก</a>
+      <a href="#">ดูดวงส่วนตัว</a>
+      <a href="#">ดูดวงรายวัน</a>
+      <a href="#">บทความโหราศาสตร์</a>
+      <a href="#">เกี่ยวกับเรา</a>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-outline">เข้าสู่ระบบ</button>
+      <button class="btn-gold">สมัครสมาชิก</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div style="position:absolute;inset:0;background-image:url(stars-bg.png);background-size:cover;background-position:center;opacity:0.9;"></div>
+  <div style="position:absolute;inset:0;background-image:url(hero-scene.png);background-size:cover;background-position:center top;opacity:0.55;mix-blend-mode:screen;"></div>
+
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Atmospheric glow -->
+  <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(160,100,15,0.35)0%,transparent 70%);pointer-events:none"></div>
+
+  <!-- Temple silhouettes -->
+  <svg class="temple-left" width="340" height="460" viewBox="0 0 340 460" fill="none">
+    <path d="M0 460 L0 320 L25 285 L38 230 L50 205 L65 165 L80 185 L95 155 L110 120 L125 95 L140 70 L155 95 L170 120 L185 150 L198 170 L215 145 L230 115 L248 135 L262 162 L278 185 L290 215 L305 248 L318 285 L340 320 L340 460 Z" fill="url(#tl)"/>
+    <defs><linearGradient id="tl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0.5"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0.04"/></linearGradient></defs>
+  </svg>
+  <svg class="temple-right" width="340" height="460" viewBox="0 0 340 460" fill="none">
+    <path d="M340 460 L340 320 L315 285 L302 230 L290 205 L275 165 L260 185 L245 155 L230 120 L215 95 L200 70 L185 95 L170 120 L155 150 L142 170 L125 145 L110 115 L92 135 L78 162 L62 185 L50 215 L35 248 L22 285 L0 320 L0 460 Z" fill="url(#tr)"/>
+    <defs><linearGradient id="tr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0.5"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0.04"/></linearGradient></defs>
+  </svg>
+
+  <!-- Orbit rings -->
+  <div class="hero-rings">
+    <div class="ring rotate-slow" style="width:680px;height:680px;margin-left:-340px;margin-top:-340px;border-color:rgba(201,168,76,0.1)"></div>
+    <div class="ring rotate-rev" style="width:540px;height:540px;margin-left:-270px;margin-top:-270px;border-style:dashed;border-color:rgba(201,168,76,0.08)"></div>
+    <div class="ring" style="width:400px;height:400px;margin-left:-200px;margin-top:-200px;border-color:rgba(201,168,76,0.07)"></div>
+  </div>
+
+  <!-- Moon -->
+  <div style="position:absolute;top:90px;right:22%;opacity:0.55;pointer-events:none">
+    <svg width="68" height="68" viewBox="0 0 68 68" fill="none">
+      <circle cx="34" cy="34" r="30" fill="url(#moonh)"/>
+      <circle cx="21" cy="26" r="18" fill="#04040a"/>
+      <defs><radialGradient id="moonh" cx="62%" cy="28%" r="50%"><stop offset="0%" stop-color="#f0d860"/><stop offset="100%" stop-color="#7a5e10"/></radialGradient></defs>
+    </svg>
+  </div>
+  <!-- Planet -->
+  <div style="position:absolute;top:120px;left:22%;opacity:0.4;pointer-events:none">
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+      <ellipse cx="26" cy="26" rx="24" ry="7" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+      <circle cx="26" cy="26" r="12" fill="url(#plh)"/>
+      <path d="M4 26 Q26 20 48 26" stroke="#04040a" stroke-width="6" fill="none"/>
+      <path d="M4 26 Q26 21 48 26" stroke="rgba(201,168,76,0.3)" stroke-width="1.5" fill="none"/>
+      <defs><radialGradient id="plh" cx="38%" cy="34%" r="55%"><stop offset="0%" stop-color="#d4a840"/><stop offset="100%" stop-color="#503010"/></radialGradient></defs>
+    </svg>
+  </div>
+
+  <!-- Main content -->
+  <div class="hero-content fade-up">
+    <!-- Sun SVG -->
+    <div class="float" style="margin-bottom:1rem">
+      <svg width="180" height="180" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto;display:block;filter:drop-shadow(0 0 30px rgba(201,168,76,0.35))">
+        <circle cx="100" cy="100" r="96" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+        <circle cx="100" cy="100" r="80" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+        <!-- 16 rays -->
+        <line x1="100" y1="44" x2="100" y2="26" stroke="#c9a84c" stroke-width="2.5" opacity="0.7"/>
+        <line x1="127" y1="51.4" x2="138.6" y2="38.2" stroke="#c9a84c" stroke-width="2" opacity="0.6"/>
+        <line x1="148.6" y1="73" x2="161.8" y2="61.4" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+        <line x1="156" y1="100" x2="174" y2="100" stroke="#c9a84c" stroke-width="2.5" opacity="0.7"/>
+        <line x1="148.6" y1="127" x2="161.8" y2="138.6" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+        <line x1="127" y1="148.6" x2="138.6" y2="161.8" stroke="#c9a84c" stroke-width="2" opacity="0.6"/>
+        <line x1="100" y1="156" x2="100" y2="174" stroke="#c9a84c" stroke-width="2.5" opacity="0.7"/>
+        <line x1="73" y1="148.6" x2="61.4" y2="161.8" stroke="#c9a84c" stroke-width="2" opacity="0.6"/>
+        <line x1="51.4" y1="127" x2="38.2" y2="138.6" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+        <line x1="44" y1="100" x2="26" y2="100" stroke="#c9a84c" stroke-width="2.5" opacity="0.7"/>
+        <line x1="51.4" y1="73" x2="38.2" y2="61.4" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+        <line x1="73" y1="51.4" x2="61.4" y2="38.2" stroke="#c9a84c" stroke-width="2" opacity="0.6"/>
+        <!-- Body -->
+        <circle cx="100" cy="100" r="52" fill="url(#mainSun)"/>
+        <!-- Crown triangles -->
+        <polygon points="100,48 104,62 96,62" fill="#c9a84c" opacity="0.55"/>
+        <polygon points="132,68 140,81 126,79" fill="#c9a84c" opacity="0.4"/>
+        <polygon points="152,100 138,104 138,96" fill="#c9a84c" opacity="0.4"/>
+        <polygon points="132,132 126,121 140,119" fill="#c9a84c" opacity="0.4"/>
+        <polygon points="100,152 96,138 104,138" fill="#c9a84c" opacity="0.4"/>
+        <polygon points="68,132 74,121 60,119" fill="#c9a84c" opacity="0.4"/>
+        <polygon points="48,100 62,96 62,104" fill="#c9a84c" opacity="0.4"/>
+        <polygon points="68,68 60,81 74,79" fill="#c9a84c" opacity="0.4"/>
+        <!-- Eyes -->
+        <ellipse cx="88" cy="93" rx="7" ry="8.5" fill="#2e1600" opacity="0.9"/>
+        <ellipse cx="112" cy="93" rx="7" ry="8.5" fill="#2e1600" opacity="0.9"/>
+        <ellipse cx="87" cy="91" rx="4" ry="5" fill="#0a0500"/>
+        <ellipse cx="111" cy="91" rx="4" ry="5" fill="#0a0500"/>
+        <circle cx="85.5" cy="89.5" r="1.8" fill="#c9a84c" opacity="0.55"/>
+        <circle cx="109.5" cy="89.5" r="1.8" fill="#c9a84c" opacity="0.55"/>
+        <!-- Nose -->
+        <path d="M100 97 L96.5 108 L103.5 108" stroke="#5a3010" stroke-width="1.5" fill="rgba(90,48,16,0.3)" opacity="0.7"/>
+        <!-- Mouth -->
+        <path d="M87 115 Q100 125 113 115" stroke="#5a3010" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <defs>
+          <radialGradient id="mainSun" cx="44%" cy="37%" r="56%">
+            <stop offset="0%" stop-color="#f8e080"/>
+            <stop offset="35%" stop-color="#e8b838"/>
+            <stop offset="70%" stop-color="#c07818"/>
+            <stop offset="100%" stop-color="#6a3808"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <h1 class="hero-title gold-text">SURIYAN</h1>
+    <p class="hero-sub">ศาสตร์แห่งดวงอาทิตย์ สุริยยาตร์</p>
+    <p class="hero-desc">ค้นพบชะตาชีวิต ด้วยโหราศาสตร์ไทยอันศักดิ์สิทธิ์</p>
+    <div class="hero-btns">
+      <button class="btn-hero btn-hero-gold">ดูดวงส่วนตัว</button>
+      <button class="btn-hero btn-hero-border">ดูดวงรายวัน</button>
+    </div>
+  </div>
+
+  <div class="hero-fade"></div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-bg">
+  <div class="container">
+    <div class="section-title">
+      <div class="divider"><span>บริการของเรา</span></div>
+    </div>
+    <div class="services-grid">
+      <!-- Card 1 -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none" style="width:100%;height:100%">
+            <circle cx="40" cy="40" r="36" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+            <circle cx="40" cy="40" r="27" stroke="rgba(201,168,76,0.2)" stroke-width="0.5"/>
+            <line x1="40" y1="4" x2="40" y2="13" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
+            <line x1="40" y1="67" x2="40" y2="76" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
+            <line x1="4" y1="40" x2="13" y2="40" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
+            <line x1="67" y1="40" x2="76" y2="40" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
+            <line x1="9.4" y1="9.4" x2="15.8" y2="15.8" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+            <line x1="64.2" y1="64.2" x2="70.6" y2="70.6" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+            <line x1="70.6" y1="9.4" x2="64.2" y2="15.8" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+            <line x1="15.8" y1="64.2" x2="9.4" y2="70.6" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+            <circle cx="40" cy="40" r="10" fill="url(#sc1)"/>
+            <defs><radialGradient id="sc1" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#f0d080"/><stop offset="100%" stop-color="#8a5010"/></radialGradient></defs>
+          </svg>
+        </div>
+        <div class="service-title">ดูดวงส่วนตัว</div>
+        <div class="service-desc">วิเคราะห์ดวงชะตา เจาะลึกชีวิต การงาน การเงิน ความรัก</div>
+        <button class="btn-sm">ดูรายละเอียด</button>
+      </div>
+      <!-- Card 2 -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none" style="width:100%;height:100%">
+            <circle cx="40" cy="40" r="36" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="5 3"/>
+            <circle cx="40" cy="40" r="20" fill="url(#sc2)"/>
+            <circle cx="29" cy="34" r="14" fill="#04040a"/>
+            <circle cx="62" cy="20" r="2.5" fill="#c9a84c" opacity="0.75"/>
+            <circle cx="16" cy="56" r="1.8" fill="#c9a84c" opacity="0.55"/>
+            <circle cx="66" cy="56" r="1.5" fill="#c9a84c" opacity="0.5"/>
+            <circle cx="20" cy="22" r="1.2" fill="#c9a84c" opacity="0.4"/>
+            <defs><radialGradient id="sc2" cx="60%" cy="30%" r="50%"><stop offset="0%" stop-color="#e8c850"/><stop offset="100%" stop-color="#604010"/></radialGradient></defs>
+          </svg>
+        </div>
+        <div class="service-title">ดูดวงรายวัน</div>
+        <div class="service-desc">เช็กดวงประจำวัน แม่นยำ อัปเดตทุกวัน</div>
+        <button class="btn-sm">ดูรายละเอียด</button>
+      </div>
+      <!-- Card 3 -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none" style="width:100%;height:100%">
+            <circle cx="40" cy="40" r="36" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+            <circle cx="40" cy="40" r="3" fill="#c9a84c"/>
+            <polygon points="40,10 43.5,40 40,34 36.5,40" fill="url(#compassN)"/>
+            <polygon points="40,70 43.5,40 40,46 36.5,40" fill="rgba(201,168,76,0.3)"/>
+            <polygon points="10,40 40,36.5 34,40 40,43.5" fill="rgba(201,168,76,0.3)"/>
+            <polygon points="70,40 40,36.5 46,40 40,43.5" fill="rgba(201,168,76,0.3)"/>
+            <text x="40" y="8" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="serif">N</text>
+            <text x="40" y="77" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="serif">S</text>
+            <text x="7" y="43" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="serif">W</text>
+            <text x="73" y="43" text-anchor="middle" fill="#c9a84c" font-size="7" font-family="serif">E</text>
+            <defs><linearGradient id="compassN" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f0d080"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient></defs>
+          </svg>
+        </div>
+        <div class="service-title">ดูดวงรายเดือน</div>
+        <div class="service-desc">วางแผนชีวิตล่วงหน้า ตลอดทั้งเดือน</div>
+        <button class="btn-sm">ดูรายละเอียด</button>
+      </div>
+      <!-- Card 4 -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none" style="width:100%;height:100%">
+            <ellipse cx="40" cy="40" rx="36" ry="10" stroke="rgba(201,168,76,0.4)" stroke-width="1.5" fill="none"/>
+            <circle cx="40" cy="40" r="18" fill="url(#sc4)"/>
+            <path d="M8 40 Q40 32 72 40" stroke="#04040a" stroke-width="7" fill="none"/>
+            <path d="M8 40 Q40 33 72 40" stroke="rgba(201,168,76,0.35)" stroke-width="1.8" fill="none"/>
+            <defs><radialGradient id="sc4" cx="40%" cy="35%" r="55%"><stop offset="0%" stop-color="#d4a840"/><stop offset="100%" stop-color="#503010"/></radialGradient></defs>
+          </svg>
+        </div>
+        <div class="service-title">ฤกษ์มงคล</div>
+        <div class="service-desc">เลือกฤกษ์ดี เสริมดวงชะตา เรียกสิริมงคล</div>
+        <button class="btn-sm">ดูรายละเอียด</button>
+      </div>
+      <!-- Card 5 -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none" style="width:100%;height:100%">
+            <rect x="12" y="14" width="56" height="54" rx="4" stroke="rgba(201,168,76,0.38)" stroke-width="1.5" fill="rgba(201,168,76,0.04)"/>
+            <line x1="40" y1="14" x2="40" y2="68" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+            <line x1="20" y1="29" x2="36" y2="29" stroke="rgba(201,168,76,0.55)" stroke-width="1.5"/>
+            <line x1="20" y1="37" x2="36" y2="37" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+            <line x1="20" y1="45" x2="36" y2="45" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+            <line x1="20" y1="53" x2="36" y2="53" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+            <line x1="44" y1="29" x2="60" y2="29" stroke="rgba(201,168,76,0.55)" stroke-width="1.5"/>
+            <line x1="44" y1="37" x2="60" y2="37" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+            <line x1="44" y1="45" x2="60" y2="45" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+            <path d="M28 18 L29.8 22.5 L34.5 22.5 L30.8 25.2 L32 29.8 L28 27.2 L24 29.8 L25.2 25.2 L21.5 22.5 L26.2 22.5 Z" fill="#c9a84c" opacity="0.55"/>
+          </svg>
+        </div>
+        <div class="service-title">บทความโหราศาสตร์</div>
+        <div class="service-desc">ความรู้โหราศาสตร์ไทย บทความพิเศษ จากนักโหร</div>
+        <button class="btn-sm">ดูรายละเอียด</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAILY FORTUNE -->
+<section class="fortune-section">
+  <div class="container">
+    <div class="fortune-grid">
+      <!-- Left card: Date -->
+      <div class="fortune-card">
+        <div class="fortune-card-title">
+          <div class="divider" style="max-width:200px;margin:0 auto 1rem"><span style="font-size:.95rem">ดวงวันนี้</span></div>
+          <div class="date-num">24</div>
+          <div class="date-month">พฤษภาคม 2567</div>
+          <div class="date-day">วันศุกร์ ขึ้น 9 ค่ำ เดือน 6</div>
+        </div>
+        <button class="btn-gold" style="width:100%;padding:.75rem">เช็กดวงวันนี้</button>
+      </div>
+
+      <!-- Center: Zodiac Wheel -->
+      <div class="wheel-wrap">
+        <svg class="rotate-slow" width="300" height="300" viewBox="0 0 300 300" fill="none" style="display:block">
+          <circle cx="150" cy="150" r="145" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <circle cx="150" cy="150" r="128" stroke="rgba(201,168,76,0.18)" stroke-width="0.5" stroke-dasharray="5 4"/>
+          <circle cx="150" cy="150" r="108" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <!-- 12 dividers -->
+          <line x1="150" y1="5" x2="150" y2="42" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="222.5" y1="27.5" x2="203.5" y2="59.5" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="272.5" y1="77.5" x2="240.5" y2="96.5" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="295" y1="150" x2="258" y2="150" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="272.5" y1="222.5" x2="240.5" y2="203.5" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="222.5" y1="272.5" x2="203.5" y2="240.5" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="150" y1="295" x2="150" y2="258" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="77.5" y1="272.5" x2="96.5" y2="240.5" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="27.5" y1="222.5" x2="59.5" y2="203.5" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="5" y1="150" x2="42" y2="150" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="27.5" y1="77.5" x2="59.5" y2="96.5" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <line x1="77.5" y1="27.5" x2="96.5" y2="59.5" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <!-- Zodiac symbols at r=120 -->
+          <text x="150" y="32" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♈</text>
+          <text x="209" y="52" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♉</text>
+          <text x="248" y="92" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♊</text>
+          <text x="268" y="150" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♋</text>
+          <text x="248" y="210" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♌</text>
+          <text x="209" y="250" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♍</text>
+          <text x="150" y="270" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♎</text>
+          <text x="92" y="250" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♏</text>
+          <text x="52" y="210" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♐</text>
+          <text x="32" y="150" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♑</text>
+          <text x="52" y="92" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♒</text>
+          <text x="92" y="52" text-anchor="middle" fill="#c9a84c" font-size="15" opacity="0.65">♓</text>
+          <!-- Inner rings -->
+          <circle cx="150" cy="150" r="82" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <circle cx="150" cy="150" r="62" stroke="rgba(201,168,76,0.13)" stroke-width="0.5"/>
+          <!-- Center sun -->
+          <circle cx="150" cy="150" r="40" fill="url(#wheelSun)"/>
+          <line x1="150" y1="110" x2="150" y2="102" stroke="#c9a84c" stroke-width="2.5" opacity="0.65"/>
+          <line x1="178" y1="122" x2="184" y2="116" stroke="#c9a84c" stroke-width="2" opacity="0.55"/>
+          <line x1="190" y1="150" x2="198" y2="150" stroke="#c9a84c" stroke-width="2.5" opacity="0.65"/>
+          <line x1="178" y1="178" x2="184" y2="184" stroke="#c9a84c" stroke-width="2" opacity="0.55"/>
+          <line x1="150" y1="190" x2="150" y2="198" stroke="#c9a84c" stroke-width="2.5" opacity="0.65"/>
+          <line x1="122" y1="178" x2="116" y2="184" stroke="#c9a84c" stroke-width="2" opacity="0.55"/>
+          <line x1="110" y1="150" x2="102" y2="150" stroke="#c9a84c" stroke-width="2.5" opacity="0.65"/>
+          <line x1="122" y1="122" x2="116" y2="116" stroke="#c9a84c" stroke-width="2" opacity="0.55"/>
+          <!-- Face -->
+          <ellipse cx="144" cy="146" rx="5" ry="6" fill="#2a1500" opacity="0.9"/>
+          <ellipse cx="156" cy="146" rx="5" ry="6" fill="#2a1500" opacity="0.9"/>
+          <circle cx="143" cy="144" r="1.5" fill="#f0d080" opacity="0.5"/>
+          <circle cx="155" cy="144" r="1.5" fill="#f0d080" opacity="0.5"/>
+          <path d="M143 156 Q150 162 157 156" stroke="#5a3010" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <defs>
+            <radialGradient id="wheelSun" cx="42%" cy="36%" r="56%">
+              <stop offset="0%" stop-color="#f8e080"/>
+              <stop offset="45%" stop-color="#d4922a"/>
+              <stop offset="100%" stop-color="#6a3808"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Right card: Prophecy -->
+      <div class="fortune-card">
+        <div class="divider" style="max-width:220px;margin:0 auto 1.2rem"><span style="font-size:.95rem">คำทำนายวันนี้</span></div>
+        <blockquote class="fortune-quote">
+          &ldquo;เป็นวันที่ดวงดาวส่งเสริมในเรื่องการเริ่มต้น สิ่งใหม่ๆ มีผู้ใหญ่คอยสนับสนุน การเงินมีโอกาสได้รับโชคลาภน้อยๆ&rdquo;
+        </blockquote>
+        <div class="lucky-row">
+          <span class="lucky-label">สีมงคล</span>
+          <div class="color-dots">
+            <div class="color-dot" style="background:#8fbc8f"></div>
+            <div class="color-dot" style="background:#228B22"></div>
+            <div class="color-dot" style="background:#4169e1"></div>
+          </div>
+        </div>
+        <div class="lucky-row" style="margin-bottom:1.5rem">
+          <span class="lucky-label">เลขมงคล</span>
+          <div class="lucky-nums">
+            <div class="lucky-num">2</div>
+            <div class="lucky-num">5</div>
+            <div class="lucky-num">9</div>
+          </div>
+        </div>
+        <button class="btn-gold" style="width:100%;padding:.75rem">อ่านคำทำนายเพิ่มเติม</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog-section">
+  <div class="container">
+    <div class="section-title">
+      <div class="divider"><span>บทความแนะนำ</span></div>
+    </div>
+    <div class="blog-grid">
+      <!-- Blog 1 -->
+      <div class="blog-card">
+        <div class="blog-img">
+          <svg viewBox="0 0 280 140" fill="none" style="width:100%;height:100%">
+            <rect width="280" height="140" fill="url(#b1bg)"/>
+            <circle cx="140" cy="70" r="55" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+            <circle cx="140" cy="70" r="40" stroke="rgba(201,168,76,0.2)" stroke-width="0.5" stroke-dasharray="4 3"/>
+            <line x1="140" y1="15" x2="140" y2="30" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
+            <line x1="140" y1="110" x2="140" y2="125" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
+            <line x1="85" y1="70" x2="100" y2="70" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
+            <line x1="180" y1="70" x2="195" y2="70" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
+            <circle cx="140" cy="70" r="16" fill="url(#b1sun)"/>
+            <defs>
+              <radialGradient id="b1bg" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#1a1020"/><stop offset="100%" stop-color="#050510"/></radialGradient>
+              <radialGradient id="b1sun" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#f0d080"/><stop offset="100%" stop-color="#8a5010"/></radialGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">ทำความรู้จักกับสุริยาตร์</div>
+          <div class="blog-date">20 พฤษภาคม 2567</div>
+        </div>
+      </div>
+      <!-- Blog 2 -->
+      <div class="blog-card">
+        <div class="blog-img">
+          <svg viewBox="0 0 280 140" fill="none" style="width:100%;height:100%">
+            <rect width="280" height="140" fill="url(#b2bg)"/>
+            <circle cx="140" cy="70" r="60" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+            <circle cx="140" cy="70" r="3.5" fill="#c9a84c"/>
+            <polygon points="140,15 144,70 140,60 136,70" fill="url(#cn)"/>
+            <polygon points="140,125 144,70 140,80 136,70" fill="rgba(201,168,76,0.3)"/>
+            <polygon points="80,70 140,66 130,70 140,74" fill="rgba(201,168,76,0.3)"/>
+            <polygon points="200,70 140,66 150,70 140,74" fill="rgba(201,168,76,0.3)"/>
+            <defs>
+              <radialGradient id="b2bg" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#101520"/><stop offset="100%" stop-color="#050510"/></radialGradient>
+              <linearGradient id="cn" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f0d080"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">วิธีเสริมดวงตามราศีเกิด</div>
+          <div class="blog-date">18 พฤษภาคม 2567</div>
+        </div>
+      </div>
+      <!-- Blog 3 -->
+      <div class="blog-card">
+        <div class="blog-img">
+          <svg viewBox="0 0 280 140" fill="none" style="width:100%;height:100%">
+            <rect width="280" height="140" fill="url(#b3bg)"/>
+            <path d="M140 20 L152 55 L160 70 L168 90 L185 125 L95 125 L112 90 L120 70 L128 55 Z" fill="url(#tb3)" opacity="0.55"/>
+            <path d="M140 20 L144 32 L140 28 L136 32 Z" fill="#c9a84c" opacity="0.8"/>
+            <circle cx="60" cy="30" r="2.5" fill="#c9a84c" opacity="0.5"/>
+            <circle cx="220" cy="40" r="2" fill="#c9a84c" opacity="0.4"/>
+            <circle cx="55" cy="100" r="1.8" fill="#c9a84c" opacity="0.4"/>
+            <circle cx="225" cy="95" r="1.5" fill="#c9a84c" opacity="0.4"/>
+            <defs>
+              <radialGradient id="b3bg" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#180e08"/><stop offset="100%" stop-color="#050510"/></radialGradient>
+              <linearGradient id="tb3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0.85"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0.08"/></linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">ฤกษ์ดีเดือนมิถุนายน 2567</div>
+          <div class="blog-date">15 พฤษภาคม 2567</div>
+        </div>
+      </div>
+      <!-- Blog 4 -->
+      <div class="blog-card">
+        <div class="blog-img">
+          <svg viewBox="0 0 280 140" fill="none" style="width:100%;height:100%">
+            <rect width="280" height="140" fill="url(#b4bg)"/>
+            <line x1="140" y1="10" x2="140" y2="28" stroke="#c9a84c" stroke-width="2" opacity="0.55"/>
+            <line x1="140" y1="112" x2="140" y2="130" stroke="#c9a84c" stroke-width="2" opacity="0.55"/>
+            <line x1="80" y1="70" x2="98" y2="70" stroke="#c9a84c" stroke-width="2" opacity="0.55"/>
+            <line x1="182" y1="70" x2="200" y2="70" stroke="#c9a84c" stroke-width="2" opacity="0.55"/>
+            <line x1="97" y1="27" x2="109" y2="39" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+            <line x1="183" y1="27" x2="171" y2="39" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+            <line x1="97" y1="113" x2="109" y2="101" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+            <line x1="183" y1="113" x2="171" y2="101" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+            <circle cx="140" cy="70" r="32" fill="url(#b4sun)"/>
+            <ellipse cx="133" cy="65" rx="4.5" ry="5.5" fill="#2e1600" opacity="0.9"/>
+            <ellipse cx="147" cy="65" rx="4.5" ry="5.5" fill="#2e1600" opacity="0.9"/>
+            <path d="M133 77 Q140 83 147 77" stroke="#5a3010" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <defs>
+              <radialGradient id="b4bg" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#120d04"/><stop offset="100%" stop-color="#050510"/></radialGradient>
+              <radialGradient id="b4sun" cx="40%" cy="35%" r="55%"><stop offset="0%" stop-color="#f5d878"/><stop offset="60%" stop-color="#c9882a"/><stop offset="100%" stop-color="#6a3808"/></radialGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">ความหมายของดาวทั้ง 10</div>
+          <div class="blog-date">10 พฤษภาคม 2567</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">
+        <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.35"/>
+          <circle cx="20" cy="20" r="12" fill="url(#fs1)"/>
+          <line x1="20" y1="2" x2="20" y2="8" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+          <line x1="20" y1="32" x2="20" y2="38" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+          <line x1="2" y1="20" x2="8" y2="20" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+          <line x1="32" y1="20" x2="38" y2="20" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+          <ellipse cx="17" cy="18" rx="2.2" ry="2.8" fill="#1a0e00"/>
+          <ellipse cx="23" cy="18" rx="2.2" ry="2.8" fill="#1a0e00"/>
+          <path d="M16 22.5 Q20 26 24 22.5" stroke="#5a3010" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+          <defs><radialGradient id="fs1" cx="45%" cy="38%" r="55%"><stop offset="0%" stop-color="#f5d878"/><stop offset="100%" stop-color="#b87820"/></radialGradient></defs>
+        </svg>
+        <span>SURIYAN</span>
+      </div>
+      <p class="footer-tagline">ศาสตร์แห่งดวงอาทิตย์ สุริยยาตร์</p>
+    </div>
+    <div>
+      <div class="footer-heading">ติดต่อเรา</div>
+      <div class="footer-item">LINE : @suriyan</div>
+      <div class="footer-item">อีเมล : info@suriyan.com</div>
+      <div class="footer-item">โทร : 02-123-4567</div>
+    </div>
+    <div>
+      <div class="footer-heading">สิ่งที่ควร</div>
+      <div class="footer-item"><a href="#">เกี่ยวกับเรา</a></div>
+      <div class="footer-item"><a href="#">คำถามที่พบบ่อย</a></div>
+      <div class="footer-item"><a href="#">นโยบายความเป็นส่วนตัว</a></div>
+      <div class="footer-item"><a href="#">เงื่อนไขการให้บริการ</a></div>
+    </div>
+    <div>
+      <div class="footer-heading">ติดตามเรา</div>
+      <div class="social-icons">
+        <div class="social-btn">
+          <svg width="16" height="16" fill="rgba(201,168,76,0.75)" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </div>
+        <div class="social-btn">
+          <svg width="16" height="16" fill="rgba(201,168,76,0.75)" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#04040a"/></svg>
+        </div>
+        <div class="social-btn">
+          <svg width="16" height="16" fill="none" stroke="rgba(201,168,76,0.75)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(201,168,76,0.75)" stroke="none"/></svg>
+        </div>
+        <div class="social-btn">
+          <svg width="16" height="16" fill="rgba(201,168,76,0.75)" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.79a8.18 8.18 0 004.78 1.52V6.86a4.85 4.85 0 01-1.01-.17z"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-copy">© 2024 SURIYAN. All Rights Reserved.</div>
+</footer>
+
+<script>
+  // Generate stars
+  const starsEl = document.getElementById('stars')
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div')
+    star.className = 'star'
+    const size = Math.random() * 2.5 + 0.5
+    const x = Math.random() * 100
+    const y = Math.random() * 100
+    const delay = Math.random() * 5
+    const duration = Math.random() * 4 + 2
+    star.style.cssText = `
+      left:${x}%;top:${y}%;
+      width:${size}px;height:${size}px;
+      --d:${duration}s;--delay:${delay}s;
+      opacity:${Math.random() * 0.5 + 0.2};
+      ${Math.random() > 0.85 ? 'background:rgba(201,168,76,0.7)' : ''}
+    `
+    starsEl.appendChild(star)
+  }
+</script>
+</body>
+</html>

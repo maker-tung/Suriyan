@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700&family=Sarabun:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold-primary: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-glow: #f0d080;
+  --gold-dark: #8a6a20;
+  --bg-deep: #04040a;
+  --bg-dark: #070710;
+  --bg-card: #0a0a18;
+  --bg-card-border: #1a1a35;
+  --text-primary: #f5e6c0;
+  --text-muted: #8a7a5a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Sarabun', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Gold gradient text */
+.gold-text {
+  background: linear-gradient(135deg, #c9a84c 0%, #f0d080 40%, #e8c97a 60%, #a07830 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-text-simple {
+  color: var(--gold-primary);
+}
+
+/* Glow effects */
+.gold-glow {
+  text-shadow: 0 0 20px rgba(201, 168, 76, 0.6), 0 0 40px rgba(201, 168, 76, 0.3);
+}
+
+.gold-box-glow {
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.15), inset 0 0 30px rgba(201, 168, 76, 0.05);
+}
+
+/* Starfield animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotateReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 15px rgba(201, 168, 76, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(201, 168, 76, 0.7), 0 0 80px rgba(201, 168, 76, 0.3); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-rotate-slow { animation: rotateSlow 60s linear infinite; }
+.animate-rotate-reverse { animation: rotateReverse 45s linear infinite; }
+.animate-pulse-gold { animation: pulse-gold 3s ease-in-out infinite; }
+.animate-fade-in-up { animation: fadeInUp 0.8s ease forwards; }
+
+/* Navbar styles */
+.navbar {
+  background: linear-gradient(180deg, rgba(4, 4, 10, 0.98) 0%, rgba(4, 4, 10, 0.85) 100%);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.nav-link {
+  color: var(--text-primary);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--gold-primary);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold-primary);
+  border-radius: 1px;
+}
+
+/* Button styles */
+.btn-gold {
+  background: linear-gradient(135deg, #c9a84c 0%, #e8c97a 50%, #c9a84c 100%);
+  color: #1a0e00;
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 700;
+  padding: 0.6rem 1.8rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #e8c97a 0%, #f5dc8a 50%, #e8c97a 100%);
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold-primary);
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 600;
+  padding: 0.6rem 1.8rem;
+  border-radius: 4px;
+  border: 1px solid var(--gold-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-outline:hover {
+  background: rgba(201, 168, 76, 0.1);
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+}
+
+/* Hero CTA buttons */
+.btn-hero-primary {
+  background: linear-gradient(135deg, #c9a84c 0%, #e8c97a 50%, #b8922a 100%);
+  color: #1a0e00;
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 700;
+  padding: 0.75rem 2.5rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+}
+
+.btn-hero-primary:hover {
+  box-shadow: 0 6px 30px rgba(201, 168, 76, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-hero-outline {
+  background: transparent;
+  color: var(--gold-primary);
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 600;
+  padding: 0.75rem 2.5rem;
+  border-radius: 4px;
+  border: 2px solid var(--gold-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.05rem;
+}
+
+.btn-hero-outline:hover {
+  background: rgba(201, 168, 76, 0.15);
+  box-shadow: 0 6px 30px rgba(201, 168, 76, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Card styles */
+.service-card {
+  background: linear-gradient(135deg, #000000 0%, #0f0f22 100%);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:hover {
+  border-color: rgba(201, 168, 76, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 14px 48px rgba(201, 168, 76, 0.18);
+}
+
+/* Section divider */
+.gold-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.gold-divider::before,
+.gold-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.4), rgba(201, 168, 76, 0.1));
+}
+
+.gold-divider::after {
+  background: linear-gradient(270deg, transparent, rgba(201, 168, 76, 0.4), rgba(201, 168, 76, 0.1));
+}
+
+/* Daily fortune card */
+.fortune-card {
+  background: linear-gradient(135deg, #09091a 0%, #0f0f24 100%);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 12px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.fortune-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c9a84c, #f0d080, #c9a84c, transparent);
+}
+
+/* Blog card */
+.blog-card {
+  background: linear-gradient(135deg, #0a0a18 0%, #0f0f22 100%);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.blog-card:hover {
+  border-color: rgba(201, 168, 76, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(201, 168, 76, 0.12);
+}
+
+/* Hero background — base colour only; real images are inlined in Hero.tsx */
+.hero-bg {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Zodiac wheel */
+.zodiac-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+}
+
+/* Section background */
+.section-bg {
+  background: linear-gradient(180deg, #04040a 0%, #06060e 50%, #04040a 100%);
+}
+
+/* Footer */
+.footer-bg {
+  background: linear-gradient(180deg, #04040a 0%, #02020a 100%);
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+/* Number badge */
+.lucky-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  color: var(--gold-primary);
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Color dot */
+.color-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title { font-size: 3rem !important; }
+}
