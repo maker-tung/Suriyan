@@ -8,17 +8,17 @@ export default function Hero() {
         backgroundPosition: 'center',
         opacity: 0.9,
         maskImage: 'linear-gradient(to bottom, black 95%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent)' ,
+        WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent)',
       }} />
       {/* Hero scene: temple + sun + clouds + zodiac ring — blended over stars */}
       <div className="absolute inset-0" style={{
         backgroundImage: 'url(/hero-scene.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center top',
-        opacity: 0.55,
+        opacity: 0.85,
         mixBlendMode: 'screen',
-        maskImage: 'linear-gradient(to bottom, black 95%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent)' ,
+        maskImage: 'linear-gradient(to bottom, black 90%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to bottom, black 90%, transparent)',
       }} />
 
       {/* Subtle animated orbit rings layered over the scene */}
@@ -39,20 +39,23 @@ export default function Hero() {
 
       {/* Hero Text */}
       <div className="relative z-10 text-center px-4 mt-24">
-        <h1 className="font-serif text-7xl md:text-8xl font-bold gold-text gold-glow mb-3 tracking-wider hero-title">
-          SURIYAN
-        </h1>
-        <p className="text-xl md:text-2xl font-thai font-medium mb-2" style={{ color: '#d4a840' }}>
-          ศาสตร์แห่งดวงอาทิตย์ สุริยยาตร์
-        </p>
-        <p className="text-base md:text-lg font-thai text-yellow-100/70 mb-10 tracking-wide">
-          ค้นพบชะตาชีวิต ด้วยโหราศาสตร์ไทยอันศักดิ์สิทธิ์
-        </p>
+        <div className="font-serif text-7xl font-bold gold-text drop-shadow-[0_2px_3px_rgba(0,0,0,1)]">
+          <h1 className="font-serif text-7xl md:text-8xl font-bold gold-text gold-glow mb-3 tracking-wider hero-title">
+            SURIYAN
+          </h1>
+          <p className="text-xl md:text-2xl font-thai font-medium mb-2" style={{ color: '#d4a840' }}>
+            ศาสตร์แห่งดวงอาทิตย์ สุริยยาตร์
+          </p>
+          <p className="text-base md:text-lg font-thai text-yellow-100/70 mb-10 tracking-wide">
+            ค้นพบชะตาชีวิต ด้วยโหราศาสตร์ไทยอันศักดิ์สิทธิ์
+          </p>
+        </div>
+
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-4 justify-center">
-          <button className="btn-hero-primary">ดูดวงส่วนตัว</button>
-          <button className="btn-hero-outline">ดูดวงรายวัน</button>
+        <div className="flex flex-wrap gap-4 justify-center drop-shadow-[0_2px_3px_rgba(0,0,0,0.3)]">
+          <button className="btn-hero-primary drop-shadow-[0_2px_3px_rgba(0,0,0,0.2)]">ดูดวงส่วนตัว</button>
+          <button className="btn-hero-primary drop-shadow-[0_2px_3px_rgba(0,0,0,0.2)]">ดูดวงรายวัน</button>
         </div>
       </div>
 

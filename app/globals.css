@@ -170,7 +170,7 @@ body {
 /* Hero CTA buttons */
 .btn-hero-primary {
   background: linear-gradient(135deg, #c9a84c 0%, #e8c97a 50%, #b8922a 100%);
-  color: #1a0e00;
+  color: #3c2d20;
   font-family: 'Sarabun', sans-serif;
   font-weight: 700;
   padding: 0.75rem 2.5rem;
@@ -228,7 +228,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2.5rem;
+  /* margin-bottom: 2.5rem; */
 }
 
 .gold-divider::before,
@@ -248,7 +248,7 @@ body {
   background: linear-gradient(135deg, #09091a 0%, #0f0f24 100%);
   border: 1px solid rgba(201, 168, 76, 0.25);
   border-radius: 12px;
-  padding: 2.5rem;
+  /* padding: 2.5rem; */
   position: relative;
   overflow: hidden;
 }
