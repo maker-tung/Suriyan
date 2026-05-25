@@ -5,6 +5,9 @@ import Providers from '@/components/Providers'
 export const metadata: Metadata = {
   title: 'SURIYAN - ศาสตร์แห่งดวงอาทิตย์ สุริยยาตร์',
   description: 'ค้นพบชะตาชีวิต ด้วยโหราศาสตร์ไทยอันศักดิ์สิทธิ์',
+  icons: {
+    icon: '/logo.png',
+  },
 }
 
 export default function RootLayout({
