@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function DailyFortune() {
   return (
     <section className="py-20 px-4" style={{ backgroundImage: 'url(/stars-bg.png)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.9, }}>
@@ -19,9 +21,11 @@ export default function DailyFortune() {
                 <div className="font-thai text-3xl font-medium mb-0.5" style={{ color: 'rgba(201,168,76,0.9)' }}> 24 พฤษภาคม 2567</div>
                 <div className="font-thai text-xs" style={{ color: 'rgba(245,230,192,0.6)' }}>วันศุกร์ ขึ้น 9 ค่ำ เดือน 6</div>
               </div>
-              <button className="btn-gold w-[80%] mx-auto mt-auto">
-                เช็กดวงวันนี้
-              </button>
+              <Link href="/daily-horoscope" >
+                <button className="btn-gold w-[80%] mx-auto mt-auto">
+                  เช็กดวงวันนี้
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -40,7 +44,7 @@ export default function DailyFortune() {
               alt="Prediction Background"
               className="w-full h-auto block object-cover"
             />
-            <div className="absolute bottom-0 left-0 right-0 h-[55%] flex flex-col justify-between p-6 pb-8">
+            <div className="absolute bottom-0 left-0 right-0 h-[55%] flex flex-col justify-between p-6 pb-8 text-center">
               <div className="flex-1 flex flex-col justify-center px-2">
                 <div className="gold-divider justify-center max-w-[220px] mx-auto mb-4">
                   <span className="font-thai text-base font-semibold" style={{ color: '#c9a84c' }}>คำทำนายวันนี้</span>
@@ -60,12 +64,13 @@ export default function DailyFortune() {
                   </div>
                 </div>
               </div>
-              <button className="btn-gold w-[80%] mx-auto mt-auto">
-                อ่านคำทำนายเพิ่มเติม
-              </button>
+              <Link href="/daily-horoscope" >
+                <button className="btn-gold w-[80%] mx-auto mt-auto">
+                  เช็กดวงวันนี้
+                </button>
+              </Link>
             </div>
           </div>
-
         </div>
       </div>
     </section>
